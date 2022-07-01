@@ -1,0 +1,61 @@
+.login__view,
+.register__view {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* background-color: #e3e3e3; */
+	padding: 30px 10px;
+}
+.login__view form,
+.register__view form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	background-color: #fff;
+	border: 2px solid #262933;
+	border-bottom: 5px solid #fbb03b;
+	padding: 50px;
+}
+.login__view form .header, .register__view form .header {
+	margin-bottom: 15px;
+}
+.login__view form h2,
+.register__view form h2 {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.login__view form .input__field,
+.register__view form .input__field {
+	display: flex;
+	flex-direction: column;
+}
+.input__field input {
+	height: 40px;
+	padding: 10px 5px;
+	background: hsla(0, 0%, 20%, 0);
+	font-size: 14px;
+	border: none;
+	border-bottom: 1px solid #333;
+}
+.input__field label {
+	font-weight: 500;
+	margin-bottom: 5px;
+}
+input:focus {
+	outline: none;
+}
+.input__field .password__strength {
+	width: 100%;
+	height: 2px;
+	background-color: #c3c3c3;
+	margin-top: 10px;
+}
+
+form p {
+	margin: 0;
+}
+form .error__msg {
+	color: red;
+}
