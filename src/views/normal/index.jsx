@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import Navbar from "../../components/Navbar";
 import { useAuth } from "../../hooks/useAuth";
 
 const NormalView = () => {
@@ -12,7 +13,14 @@ const NormalView = () => {
 			</div>
 		);
 
-	return isLoggedIn ? <Outlet /> : <Navigate to="/auth/login" />;
+	return isLoggedIn ? (
+		<>
+			<Navbar />
+			<Outlet />
+		</>
+	) : (
+		<Navigate to="/auth/login" />
+	);
 };
 
 export default NormalView;
