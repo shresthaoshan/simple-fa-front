@@ -1,0 +1,160 @@
+.sport {
+	width: 100%;
+	padding-top: 50px;
+
+	.selection {
+		width: 100%;
+		padding: 10px;
+		overflow-x: auto;
+		border-bottom: 1px solid gray;
+
+		background: white;
+
+		position: fixed;
+		top: 70px;
+		left: 0;
+		z-index: 10;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+
+		gap: 10px;
+
+		a {
+			text-decoration: none;
+		}
+
+		.selection_item {
+			padding: 5px 15px;
+			border: 0.5px solid var(--color-accent);
+			border-radius: 15px;
+			font-size: 14px;
+			font-weight: 600;
+			white-space: nowrap;
+			color: black;
+
+			&.active {
+				background: var(--color-accent);
+				color: white;
+			}
+		}
+	}
+
+	.passive {
+		width: 100%;
+		max-width: 1200px;
+		margin: 30px auto;
+
+		display: grid;
+		grid-template-columns: 7fr 3fr;
+		grid-template-areas: "highlights news";
+		gap: 20px;
+
+		.divider {
+			height: 1px;
+			width: 100%;
+			background: lightgray;
+			margin: 40px 0;
+		}
+
+		.highlights {
+			grid-area: highlights;
+		}
+		.news {
+			grid-area: news;
+		}
+	}
+}
+.highlights {
+	width: 100%;
+
+	.highlight_item {
+		width: 100%;
+		margin-bottom: 30px;
+
+		cursor: pointer;
+
+		display: grid;
+		grid-template-columns: 250px 5fr;
+		grid-auto-rows: 125px;
+		gap: 10px;
+
+		.player {
+			width: 100%;
+			height: 100%;
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+
+		.info {
+			h4 {
+				margin: 0;
+				font-size: 16px;
+				color: black;
+				font-weight: 600;
+				font-family: var(--ff-sec);
+				transition: 0.2s linear;
+			}
+		}
+
+		&:hover {
+			.info h4 {
+				color: var(--color-accent);
+			}
+		}
+	}
+}
+
+.news {
+	width: 100%;
+
+	.news_item {
+		width: 100%;
+
+		margin-bottom: 30px;
+
+		a {
+			text-decoration: none;
+		}
+
+		.image {
+			width: 100%;
+			overflow: hidden;
+
+			img {
+				border-radius: 10px;
+				height: 100%;
+				width: 100%;
+				transition: 0.2s linear;
+			}
+		}
+
+		.info {
+			margin-top: 5px;
+			transition: 0.2s linear;
+
+			h4 {
+				font-family: var(--ff-sec);
+				font-weight: 500;
+				font-size: 20px;
+				margin-top: 0;
+			}
+		}
+
+		&:hover {
+			.image {
+				img {
+					filter: grayscale(50%);
+				}
+			}
+			.info {
+				color: black;
+			}
+		}
+	}
+}

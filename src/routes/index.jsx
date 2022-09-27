@@ -6,6 +6,7 @@ import Register from "../views/auth/Register";
 
 import NormalView from "../views/normal";
 import Home from "../views/normal/Home";
+import Sport from "../views/normal/Sport";
 
 const AppRoutes = () => {
 	return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
 				{/* admin */}
 				<Route path="/" element={<NormalView />}>
 					<Route index element={<Home />} />
+					<Route path="/:sport/live" element={<Sport />} />
 				</Route>
 				<Route path="auth" element={<AuthView />}>
 					<Route path="login" element={<Login />} />

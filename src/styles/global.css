@@ -12,11 +12,12 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
-	--ff-main: "Jost", sans-serif;
+	--ff-main: Metrophobic, sans-serif;
+	--ff-sec: "Inner Tight", sans-serif;
 	--ff-mono: "Syne Mono", monospace;
 	--ff-cursive: "Patrick Hand", cursive;
 
-	--color-accent: #c1914b;
+	--color-accent: #fbb03b;
 }
 
 code {

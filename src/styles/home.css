@@ -1,18 +1,85 @@
 .home__view {
 	width: 100%;
 	height: 100vh;
+	padding-top: 30px;
+}
+.home__view h1.banner-text,
+.home__view h4 {
+	text-align: center;
+}
+.home__view .wrapper {
+	width: 100%;
+	max-width: 1380px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
+}
+
+.home__view .grid {
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto;
+	margin-top: 40px;
+	padding-bottom: 50px;
+
+	display: grid;
+	grid-template-columns: 5fr 5fr;
+	grid-auto-rows: 200px;
+	gap: 1em;
+}
+
+.home__view .grid .grid-sport {
+	height: 100%;
+	width: 100%;
+
+	border-radius: 10px;
+
+	overflow: hidden;
+
+	cursor: pointer;
+	position: relative;
+}
+
+.home__view .grid .grid-sport .label {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
 
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	text-align: center;
+
+	font-size: 20px;
+	background: rgba(240, 240, 240, 0.6);
+	transition: 0.2s linear;
 }
-.home__view .wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 15px;
+.home__view .grid .grid-sport:hover .label {
+	background: rgba(240, 240, 240, 0.2);
 }
+
+.grid-sport .label h3 {
+	color: black;
+}
+
+.home__view .grid .grid-sport .bg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
+
+.grid-sport .bg img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
 .home__view h2,
 .home__view h4,
 .home__view p {
@@ -34,4 +101,73 @@
 	width: 150px;
 	height: 150px;
 	object-fit: cover;
+}
+
+/* Streams */
+.streams {
+	flex: 0.7;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+.streams .list {
+	width: 100%;
+	height: fit-content;
+
+	display: grid;
+	grid-template-columns: 5fr 5fr;
+}
+.streams .stream {
+	width: 100%;
+
+	padding-top: 56.25%;
+	position: relative;
+}
+.streams .stream .banner {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+}
+.stream .banner img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.streams .stream .info {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 10px;
+	z-index: 2;
+
+	background: linear-gradient(180deg, rgba(60, 60, 60, 0), rgba(10, 10, 10, 1));
+	color: white;
+	font-family: var(--ff-sec);
+}
+.stream .info h3 {
+	font-size: 20px;
+	margin: 5px 0;
+}
+
+/* News */
+.news {
+	flex: 0.3;
+}
+.news h2 {
+	margin-bottom: 10px;
+}
+.news ul.list {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+.news .list li {
+	text-rendering: optimizeSpeed;
+	word-break: keep-all;
 }

@@ -13,14 +13,23 @@ const NormalView = () => {
 			</div>
 		);
 
-	return isLoggedIn ? (
+	return (
 		<>
 			<Navbar />
-			<Outlet />
+			<div style={{ marginTop: 70 }}>
+				<Outlet />
+			</div>
 		</>
-	) : (
-		<Navigate to="/auth/login" />
 	);
+
+	// return isLoggedIn ? (
+	// 	<>
+	// 		<Navbar />
+	// 		<Outlet />
+	// 	</>
+	// ) : (
+	// 	<Navigate to="/auth/login" />
+	// );
 };
 
 export default NormalView;

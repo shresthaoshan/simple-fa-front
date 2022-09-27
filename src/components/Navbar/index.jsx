@@ -1,11 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 import "./styles.scss";
 
 const Navbar = () => {
-	const { auth, logout } = useAuth();
+	const { auth, logout, isLoggedIn } = useAuth();
+
+	const navigate = useNavigate();
+
+	const goToLogin = () => {
+		navigate("/auth/login");
+	};
 
 	return (
 		<div className="navbar__container">
@@ -18,17 +24,28 @@ const Navbar = () => {
 				</div>
 				<div className="menus">
 					<ul>
-						<li>Streams</li>
 						<li>News</li>
+						<li>Blog</li>
 					</ul>
 					<div className="divider"></div>
 					<div className="control">
-						<div className="photo">
-							<img src={`https://avatars.dicebear.com/api/croodles/${auth.data.email}.svg?scale=120&translateY=5`} alt="" />
-						</div>
-						<button onClick={logout} disabled={auth.loading}>
-							{auth.loading ? "Loading..." : "Log Out"}
-						</button>
+						{isLoggedIn ? (
+							<div className="photo">
+								<img
+									src={`https://avatars.dicebear.com/api/croodles/${auth.data.email}.svg?scale=120&translateY=5`}
+									alt=""
+								/>
+							</div>
+						) : (
+							<></>
+						)}
+						{isLoggedIn ? (
+							<button onClick={logout} disabled={auth.loading}>
+								{auth.loading ? "Loading..." : "Log Out"}
+							</button>
+						) : (
+							<button onClick={goToLogin}>Log In</button>
+						)}
 					</div>
 				</div>
 			</nav>
