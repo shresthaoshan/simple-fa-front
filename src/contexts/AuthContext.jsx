@@ -61,6 +61,7 @@ export const AuthProvider = ({ children }) => {
 			console.log({ error });
 			setAuth({ loading: false, data: null, error: error.response.data.error || error.response.data.detail });
 			localStorage.removeItem("logged");
+			throw err;
 		}
 	};
 	const login = async (email = "", password = "", token = "") => {
@@ -72,6 +73,7 @@ export const AuthProvider = ({ children }) => {
 		} catch (error) {
 			setAuth({ loading: false, data: null, error: error.response.data.error || error.response.data.detail });
 			localStorage.removeItem("logged");
+			throw err;
 		}
 	};
 	const logout = async () => {
@@ -82,6 +84,7 @@ export const AuthProvider = ({ children }) => {
 			localStorage.removeItem("logged");
 		} catch (error) {
 			setAuth((prev) => ({ ...prev, data: null, loading: false }));
+			throw err;
 		}
 	};
 
