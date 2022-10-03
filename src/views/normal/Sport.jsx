@@ -1,7 +1,7 @@
-import React, { useCallback, useMemo } from "react";
-import ReactPlayer from "react-player";
-import { Link, NavLink, useLocation, useParams } from "react-router-dom";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { LiveStream } from "../../components/Stream";
+import { useSport } from "../../hooks/useSport";
 
 import "../../styles/sport.scss";
 
@@ -44,30 +44,36 @@ const _highlights = [
 const Sport = () => {
 	const { sport } = useParams();
 	const { pathname } = useLocation();
+	const {
+		sports: { list },
+		fetchSports,
+	} = useSport();
+
+	useEffect(() => {
+		if (!list.length) fetchSports();
+	}, [list.length]);
 
 	const getVidThumbnail = useCallback((link = "") => {
 		const id = link.split("=")[1];
 		return `https://i3.ytimg.com/vi/${id}/maxresdefault.jpg`;
 	}, []);
 
-	const getActSport = useCallback(
-		(sport = "") => {
-			const sport_id = sport.split(" ").join("_").toLowerCase();
-			return `/${sport_id}/live` === pathname;
-		},
-		[pathname]
-	);
+	const getActSport = useCallback((_sport = "") => sport === _sport, [sport]);
+
+	const sportDetails = useMemo(() => {
+		return list.find((e) => e.sport_id == sport);
+	}, [pathname, list]);
 
 	return (
 		<div className="sport">
 			<div className="selection">
-				{["Football", "Judo", "Tennis", "Long Jump", "High Jump", "Karate", "Sprint", "Shotput"].map((item, key) => (
-					<Link to={`/${item.split(" ").join("_").toLowerCase()}/live`} key={key}>
-						<div className={`selection_item ${getActSport(item) ? "active" : ""}`}>{item}</div>
+				{list.map((item, key) => (
+					<Link to={`/${item.sport_id}/live`} key={key}>
+						<div className={`selection_item ${getActSport(item.sport_id) ? "active" : ""}`}>{item.name}</div>
 					</Link>
 				))}
 			</div>
-			<LiveStream sport={sport} />
+			<LiveStream stream={sportDetails?.live_url || ""} />
 			<section className="passive">
 				<div className="news">
 					<h3>News</h3>

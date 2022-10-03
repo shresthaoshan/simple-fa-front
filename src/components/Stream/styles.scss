@@ -14,10 +14,30 @@
 	.play_view {
 		width: 888px;
 		height: 100%;
-		background: lighten($color: #c1914b, $amount: 20%);
+		background: darken($color: #c1914b, $amount: 30%);
 
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+		.overlay {
+			width: 100%;
+			height: 100%;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			color: white;
+
+			font-size: 22px;
+
+			h2 {
+				margin: 0;
+			}
+			button {
+				margin-top: 20px;
+			}
+		}
 	}
 }

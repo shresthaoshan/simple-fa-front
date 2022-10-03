@@ -48,7 +48,8 @@ const Login = () => {
 			.then(() => {
 				navigate("/", { replace: true });
 			})
-			.catch((err) => {
+			.catch((err) => {				
+				// setAuthError(err)
 				captchaRef.current.reset();
 				setCaptchaValue("");
 			});
