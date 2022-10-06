@@ -6,6 +6,7 @@ import { LiveStream } from "../../components/Stream";
 import { useHighlights } from "../../hooks/useHighlights";
 import { useNews } from "../../hooks/useNews";
 import { useSport } from "../../hooks/useSport";
+import { format } from "date-fns";
 
 import "../../styles/sport.scss";
 import { useBlog } from "../../hooks/useBlog";
@@ -94,6 +95,7 @@ const Sport = () => {
 					<h3>Blog Posts</h3>
 					{blogs.list.map((item) => (
 						<div className="blog_item" key={item.id}>
+							<small>{format(new Date(item.timestamp), "MMM dd, EEEE")}</small>
 							<h2>{item.title}</h2>
 							<p>
 								{item.content.split("\n").map((c, i) => (
@@ -125,7 +127,7 @@ const Sport = () => {
 				className="modal"
 				bodyOpenClassName="modal__open"
 			>
-				<ReactPlayer url={playHighlight} />
+				<ReactPlayer controls url={playHighlight} />
 			</Modal>
 		</div>
 	);
