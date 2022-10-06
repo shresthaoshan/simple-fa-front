@@ -13,7 +13,7 @@ const AppRoutes = () => {
 		<>
 			<Routes>
 				<Route path="/" element={<NormalView />}>
-					<Route path=":sport/live" element={<Sport />} />
+					<Route path="/:sport/live" element={<Sport />} />
 					<Route index element={<Home />} />
 				</Route>
 				<Route path="auth" element={<AuthView />}>

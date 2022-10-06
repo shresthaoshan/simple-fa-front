@@ -4,9 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import { AuthProvider } from "./contexts/AuthContext";
-import { HighlightsProvider } from "./contexts/HighlightsContext";
-import { NewsProvider } from "./contexts/NewsContext";
-import { SportProvider } from "./contexts/SportContext";
+import Provider from "./contexts/Provider";
 
 import "./styles/global.css";
 
@@ -14,13 +12,9 @@ ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<AuthProvider>
-				<SportProvider>
-					<NewsProvider>
-						<HighlightsProvider>
-							<App />
-						</HighlightsProvider>
-					</NewsProvider>
-				</SportProvider>
+				<Provider>
+					<App />
+				</Provider>
 			</AuthProvider>
 		</BrowserRouter>
 	</React.StrictMode>,

@@ -158,3 +158,13 @@
 		}
 	}
 }
+.blog_item {
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+
+	border-bottom: 2px dashed lightgray;
+
+	h2 {
+		color: var(--color-accent);
+	}
+}

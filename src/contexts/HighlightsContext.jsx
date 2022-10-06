@@ -24,14 +24,12 @@ export const HighlightsProvider = ({ children }) => {
 		setHighlights((prev) => ({ ...prev, loading: true }));
 		try {
 			const { data } = await highlightsApi.fetchHighlights(sport_id);
-			if (data.length) {
-				console.log({ highlightsData: data });
-				setHighlights({
-					loading: false,
-					list: data,
-					error: "",
-				});
-			}
+			console.log({ highlightsData: data });
+			setHighlights({
+				loading: false,
+				list: data,
+				error: "",
+			});
 		} catch (error) {
 			console.log({ error });
 			setHighlights({

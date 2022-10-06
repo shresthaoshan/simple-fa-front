@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
+import ReactPlayer from "react-player";
 import Modal from "react-modal";
 import { LiveStream } from "../../components/Stream";
 import { useHighlights } from "../../hooks/useHighlights";
@@ -7,26 +8,7 @@ import { useNews } from "../../hooks/useNews";
 import { useSport } from "../../hooks/useSport";
 
 import "../../styles/sport.scss";
-import ReactPlayer from "react-player";
-
-const _highlights = [
-	{
-		url: "https://www.youtube.com/watch?v=",
-		title: "",
-	},
-	{
-		url: "https://www.youtube.com/watch?v=",
-		title: "",
-	},
-	{
-		url: "https://www.youtube.com/watch?v=",
-		title: "",
-	},
-	{
-		url: "https://www.youtube.com/watch?v=",
-		title: "",
-	},
-];
+import { useBlog } from "../../hooks/useBlog";
 
 const Sport = () => {
 	const { sport } = useParams();
@@ -34,6 +16,7 @@ const Sport = () => {
 	const {
 		sports: { list },
 	} = useSport();
+	const { blogs, fetchBlogs } = useBlog();
 	const { news } = useNews();
 	const { highlights, fetchHighlights } = useHighlights();
 
@@ -52,7 +35,10 @@ const Sport = () => {
 	}, [pathname, list]);
 
 	useEffect(() => {
-		fetchHighlights(sport);
+		if (sport.length) {
+			fetchHighlights(sport);
+			fetchBlogs(sport);
+		}
 	}, [sport]);
 
 	return (
@@ -103,9 +89,19 @@ const Sport = () => {
 								</div>
 							</div>
 						))}
-						<div className="divider"></div>
-						<h3>Blog Posts</h3>
 					</div>
+					<div className="divider"></div>
+					<h3>Blog Posts</h3>
+					{blogs.list.map((item) => (
+						<div className="blog_item" key={item.id}>
+							<h2>{item.title}</h2>
+							<p>
+								{item.content.split("\n").map((c, i) => (
+									<p key={i}>{c}</p>
+								))}
+							</p>
+						</div>
+					))}
 				</div>
 			</section>
 			<Modal
