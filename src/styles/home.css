@@ -171,3 +171,6 @@
 	text-rendering: optimizeSpeed;
 	word-break: keep-all;
 }
+.ReactModalPortal {
+	z-index: 999999;
+}

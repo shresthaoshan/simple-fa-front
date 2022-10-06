@@ -1,10 +1,10 @@
 import ReactPlayer from "react-player/twitch";
-import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import LoginButton from "../Buttons/Login.button";
 
 import "./styles.scss";
 
-export const LiveStream = ({ stream = "" }) => {
+export const LiveStream = ({ stream = "", paused = false }) => {
 	const { isLoggedIn } = useAuth();
 
 	return (
@@ -12,7 +12,7 @@ export const LiveStream = ({ stream = "" }) => {
 			<div className="play_view">
 				{isLoggedIn ? (
 					stream.length ? (
-						<ReactPlayer width="100%" height="100%" url={stream} controls={false} />
+						<ReactPlayer muted={!paused} volume={1} width="100%" height="100%" url={stream} controls={false} />
 					) : (
 						<div className="overlay">
 							<h2>Stream not available.</h2>
@@ -22,9 +22,7 @@ export const LiveStream = ({ stream = "" }) => {
 				) : (
 					<div className="overlay">
 						<h2>Please log in to watch.</h2>
-						<Link to="/auth/login">
-							<button>Log In</button>
-						</Link>
+						<LoginButton />
 					</div>
 				)}
 			</div>

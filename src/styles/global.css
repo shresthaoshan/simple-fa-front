@@ -20,6 +20,10 @@ body {
 	--color-accent: #fbb03b;
 }
 
+body.modal__open {
+	overflow-y: hidden;
+}
+
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
@@ -76,7 +80,7 @@ input {
 		"Droid Sans", "Helvetica Neue", sans-serif;
 }
 label {
-  display: none;
+	display: none;
 }
 a {
 	color: #fbb03b;

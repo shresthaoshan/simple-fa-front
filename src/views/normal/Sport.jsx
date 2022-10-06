@@ -1,43 +1,30 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
+import Modal from "react-modal";
 import { LiveStream } from "../../components/Stream";
+import { useHighlights } from "../../hooks/useHighlights";
+import { useNews } from "../../hooks/useNews";
 import { useSport } from "../../hooks/useSport";
 
 import "../../styles/sport.scss";
+import ReactPlayer from "react-player";
 
-const _news = [
-	{
-		id: "jksahdjkgaiu",
-		title: "India’s tennis star Sania Mirza credits National Games for her international success",
-		thumbnail: "https://img.olympicchannel.com/images/image/private/t_16-9_400-225/f_auto/primary/geijli3bd07eb9vjrtrx",
-	},
-	{
-		id: "kjgdfhshjsdb",
-		title: "Doing it for her daughter: Why Paris 2024 and motherhood mean so much to Gabi Mazetto",
-		thumbnail: "https://img.olympicchannel.com/images/image/private/t_16-9_400-225/f_auto/primary/jea6zfmgmie4ih4rouiz",
-	},
-	{
-		id: "ydgyufsdjbhu",
-		title: "Serena Williams: How life after tennis is treating me",
-		thumbnail: "https://img.olympicchannel.com/images/image/private/t_16-9_400-225/f_auto/primary/qjkuxv157c2a1wkys6cd",
-	},
-];
 const _highlights = [
 	{
-		url: "https://www.youtube.com/watch?v=_PMUlWqEskc",
-		title: "Czech Republic 0 - 4 Portugal | Highlights | UEFA Nations League | 25th September 2022",
+		url: "https://www.youtube.com/watch?v=",
+		title: "",
 	},
 	{
-		url: "https://www.youtube.com/watch?v=VPVPC6TtSIs",
-		title: "Denmark 2 - 0 France | Highlights | UEFA Nations League | 26th September 2022",
+		url: "https://www.youtube.com/watch?v=",
+		title: "",
 	},
 	{
-		url: "https://www.youtube.com/watch?v=WTJSt4wP2ME",
-		title: "K'NAAN - Wavin' Flag (Coca-Cola Celebration Mix)",
+		url: "https://www.youtube.com/watch?v=",
+		title: "",
 	},
 	{
-		url: "https://www.youtube.com/watch?v=QP25ucU8vfI",
-		title: "FULL MATCH | Chelsea 4-0 Manchester United | Premier League Replay",
+		url: "https://www.youtube.com/watch?v=",
+		title: "",
 	},
 ];
 
@@ -46,12 +33,12 @@ const Sport = () => {
 	const { pathname } = useLocation();
 	const {
 		sports: { list },
-		fetchSports,
 	} = useSport();
+	const { news } = useNews();
+	const { highlights, fetchHighlights } = useHighlights();
 
-	useEffect(() => {
-		if (!list.length) fetchSports();
-	}, [list.length]);
+	const [paused, setPaused] = useState(false);
+	const [playHighlight, setHighlight] = useState("");
 
 	const getVidThumbnail = useCallback((link = "") => {
 		const id = link.split("=")[1];
@@ -64,6 +51,10 @@ const Sport = () => {
 		return list.find((e) => e.sport_id == sport);
 	}, [pathname, list]);
 
+	useEffect(() => {
+		fetchHighlights(sport);
+	}, [sport]);
+
 	return (
 		<div className="sport">
 			<div className="selection">
@@ -73,12 +64,12 @@ const Sport = () => {
 					</Link>
 				))}
 			</div>
-			<LiveStream stream={sportDetails?.live_url || ""} />
+			<LiveStream paused={paused} stream={sportDetails?.live_url || ""} />
 			<section className="passive">
 				<div className="news">
 					<h3>News</h3>
 					<div className="list">
-						{_news.map((item) => (
+						{news.list.map((item) => (
 							<div key={item.id} className="news_item">
 								<Link to={`/news/${item.id}`}>
 									<div className="image">
@@ -95,15 +86,20 @@ const Sport = () => {
 				<div className="highlights">
 					<h3>Highlights</h3>
 					<div className="list">
-						{_highlights.map((item, idx) => (
-							<div key={idx} className="highlight_item">
+						{highlights.list.map((item, idx) => (
+							<div
+								key={idx}
+								className="highlight_item"
+								onClick={() => {
+									setPaused(true);
+									setHighlight(item.source);
+								}}
+							>
 								<div className="player">
-									<img src={getVidThumbnail(item.url)} alt={item.title} />
-
-									{/* <ReactPlayer playsinline playing={false} width="100%" height="100%" url={item.url} /> */}
+									<img src={getVidThumbnail(item.source)} alt={item.name} />
 								</div>
 								<div className="info">
-									<h4>{item.title}</h4>
+									<h4>{item.name}</h4>
 								</div>
 							</div>
 						))}
@@ -112,6 +108,29 @@ const Sport = () => {
 					</div>
 				</div>
 			</section>
+			<Modal
+				isOpen={paused}
+				onRequestClose={() => setPaused(false)}
+				style={{
+					overlay: {
+						zIndex: 9999,
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						background: "rgba(30, 30, 30, .9)",
+						backdropFilter: "blur(5px)",
+					},
+				}}
+				preventScroll
+				shouldCloseOnEsc
+				shouldFocusAfterRender
+				shouldReturnFocusAfterClose
+				shouldCloseOnOverlayClick
+				className="modal"
+				bodyOpenClassName="modal__open"
+			>
+				<ReactPlayer url={playHighlight} />
+			</Modal>
 		</div>
 	);
 };

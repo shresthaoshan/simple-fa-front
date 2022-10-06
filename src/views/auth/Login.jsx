@@ -1,6 +1,6 @@
 import ReCAPTCHA from "react-google-recaptcha";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { captchaConfig } from "../../configs/captcha.config";
 import { useAuth } from "../../hooks/useAuth";
@@ -10,6 +10,10 @@ import Logo from "../../components/Logo";
 
 const Login = () => {
 	const navigate = useNavigate();
+
+	const {
+		state: { goto },
+	} = useLocation();
 
 	let captchaRef = useRef();
 	const [captchaValue, setCaptchaValue] = useState("");
@@ -46,9 +50,9 @@ const Login = () => {
 
 		login(email, password, captchaValue)
 			.then(() => {
-				navigate("/", { replace: true });
+				navigate(goto?.length ? goto : "/", { replace: true });
 			})
-			.catch((err) => {				
+			.catch((err) => {
 				// setAuthError(err)
 				captchaRef.current.reset();
 				setCaptchaValue("");

@@ -1,17 +1,12 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import LoginButton from "../Buttons/Login.button";
 
 import "./styles.scss";
 
 const Navbar = () => {
 	const { auth, logout, isLoggedIn } = useAuth();
-
-	const navigate = useNavigate();
-
-	const goToLogin = () => {
-		navigate("/auth/login");
-	};
 
 	return (
 		<div className="navbar__container">
@@ -44,7 +39,7 @@ const Navbar = () => {
 								{auth.loading ? "Loading..." : "Log Out"}
 							</button>
 						) : (
-							<button onClick={goToLogin}>Log In</button>
+							<LoginButton />
 						)}
 					</div>
 				</div>

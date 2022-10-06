@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import * as sportsApi from "../api/sports.api";
 
 const sportContext = createContext({
@@ -40,8 +40,11 @@ export const SportProvider = ({ children }) => {
 		}
 	};
 
+	useEffect(() => {
+		if (!sports.list.length) fetchSports();
+	}, [sports.list.length]);
+
 	return <sportContext.Provider value={{ fetchSports, setSportError, sports }}>{children}</sportContext.Provider>;
 };
 
-
-export default sportContext
+export default sportContext;

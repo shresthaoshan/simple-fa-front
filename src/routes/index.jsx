@@ -12,10 +12,9 @@ const AppRoutes = () => {
 	return (
 		<>
 			<Routes>
-				{/* admin */}
 				<Route path="/" element={<NormalView />}>
+					<Route path=":sport/live" element={<Sport />} />
 					<Route index element={<Home />} />
-					<Route path="/:sport/live" element={<Sport />} />
 				</Route>
 				<Route path="auth" element={<AuthView />}>
 					<Route path="login" element={<Login />} />
