@@ -8,13 +8,15 @@ const authContext = createContext({
 	register: () => {},
 	login: () => {},
 	logout: () => {},
+	requestReset: () => {},
+	reset: () => {},
 	setAuthError: () => {},
 	clearAuth: () => {},
 });
 
 export const AuthProvider = ({ children }) => {
 	const [auth, setAuth] = useState({
-		data: {},
+		data: null,
 		loading: false,
 		error: "",
 	});
@@ -76,6 +78,26 @@ export const AuthProvider = ({ children }) => {
 			throw err;
 		}
 	};
+	const requestReset = async (email = "", token = "") => {
+		setAuth((prev) => ({ ...prev, loading: true }));
+		try {
+			const { data } = await authApi.requestHelp({ email, token });
+			setAuth({ loading: false, error: "" });
+		} catch (error) {
+			setAuth({ loading: false, data: null, error: error.response.data.error || error.response.data.detail });
+			throw err;
+		}
+	};
+	const reset = async (verificationToken = "", password = "", token = "") => {
+		setAuth((prev) => ({ ...prev, loading: true }));
+		try {
+			const { data } = await authApi.resetPassword({ token, password, verificationToken });
+			setAuth({ loading: false, error: "" });
+		} catch (error) {
+			setAuth({ loading: false, data: null, error: error.response.data.error || error.response.data.detail });
+			throw err;
+		}
+	};
 	const logout = async () => {
 		setAuth((prev) => ({ ...prev, loading: true }));
 		try {
@@ -91,7 +113,9 @@ export const AuthProvider = ({ children }) => {
 	const isLoggedIn = useMemo(() => !!auth.data, [auth.data]);
 
 	return (
-		<authContext.Provider value={{ auth, isLoggedIn, clearAuth, login, logout, refreshToken, register, setAuthError }}>
+		<authContext.Provider
+			value={{ auth, isLoggedIn, clearAuth, login, logout, refreshToken, requestReset, reset, register, setAuthError }}
+		>
 			{children}
 		</authContext.Provider>
 	);

@@ -1,4 +1,5 @@
 .login__view,
+.help__view,
 .register__view {
 	width: 100%;
 	min-height: 100vh;
@@ -9,6 +10,7 @@
 	padding: 30px 10px;
 }
 .login__view form,
+.help__view form,
 .register__view form {
 	display: flex;
 	flex-direction: column;
@@ -18,15 +20,19 @@
 	border-bottom: 5px solid #fbb03b;
 	padding: 50px;
 }
-.login__view form .header, .register__view form .header {
+.login__view form .header,
+.help__view form .header,
+.register__view form .header {
 	margin-bottom: 15px;
 }
 .login__view form h2,
+.help__view form h2,
 .register__view form h2 {
 	margin-top: 0;
 	margin-bottom: 0;
 }
 .login__view form .input__field,
+.help__view form .input__field,
 .register__view form .input__field {
 	display: flex;
 	flex-direction: column;

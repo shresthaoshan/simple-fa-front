@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import * as highlightsApi from "../api/highlights.api";
 
 const highlightsContext = createContext({
@@ -39,10 +39,6 @@ export const HighlightsProvider = ({ children }) => {
 			});
 		}
 	};
-
-	useEffect(() => {
-		if (!highlights.list.length) fetchHighlights();
-	}, [highlights.list.length]);
 
 	return <highlightsContext.Provider value={{ fetchHighlights, setHighlightError, highlights }}>{children}</highlightsContext.Provider>;
 };

@@ -19,3 +19,25 @@ export const register = ({ token, ...payload }) =>
 			captcha: token,
 		},
 	});
+
+export const requestHelp = ({ token, email }) =>
+	axInstance.post(
+		"/api/auth/request-reset",
+		{ email },
+		{
+			headers: {
+				captcha: token,
+			},
+		}
+	);
+
+export const resetPassword = ({ token, verificationToken, password }) =>
+	axInstance.put(
+		"/api/auth/reset",
+		{ token: verificationToken, password },
+		{
+			headers: {
+				captcha: token,
+			},
+		}
+	);

@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import * as blogApi from "../api/blog.api";
 
 const blogContext = createContext({
@@ -39,10 +39,6 @@ export const BlogProvider = ({ children }) => {
 			});
 		}
 	};
-
-	useEffect(() => {
-		if (!blogs.list.length) fetchBlogs();
-	}, [blogs.list.length]);
 
 	return <blogContext.Provider value={{ fetchBlogs, setBlogError, blogs }}>{children}</blogContext.Provider>;
 };

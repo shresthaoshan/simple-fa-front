@@ -11,9 +11,7 @@ import Logo from "../../components/Logo";
 const Login = () => {
 	const navigate = useNavigate();
 
-	const {
-		state: { goto },
-	} = useLocation();
+	const { state } = useLocation();
 
 	let captchaRef = useRef();
 	const [captchaValue, setCaptchaValue] = useState("");
@@ -50,10 +48,10 @@ const Login = () => {
 
 		login(email, password, captchaValue)
 			.then(() => {
-				navigate(goto?.length ? goto : "/", { replace: true });
+				const _url = state?.goto?.length ? state.goto : "/";
+				navigate(_url, { replace: true });
 			})
 			.catch((err) => {
-				// setAuthError(err)
 				captchaRef.current.reset();
 				setCaptchaValue("");
 			});
@@ -67,7 +65,7 @@ const Login = () => {
 					<h2>Sign In</h2>
 					<p>
 						New here?{" "}
-						<Link to="/auth/register" onClick={clearAuth}>
+						<Link to="../register" onClick={clearAuth}>
 							Register Now
 						</Link>
 					</p>
@@ -112,6 +110,11 @@ const Login = () => {
 					<small className="error__msg">{auth.error}</small>
 				</p>
 				<button disabled={!captchaValue.length || auth.loading}>{auth.loading ? "Loading..." : "Sign In"}</button>
+				<div className="reset">
+					<p style={{ textAlign: "right" }}>
+						<Link to="../help">Reset Password.</Link>
+					</p>
+				</div>
 			</form>
 		</div>
 	);
